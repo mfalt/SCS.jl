@@ -32,8 +32,8 @@ provides(Binaries, URI("https://cache.e.ip.saba.us/https://bintray.com/artifact/
     SHA="62bb4feeb7d2cd3db595f05b86a20fc93cfdef23311e2e898e18168189072d02")
 
 prefix = joinpath(BinDeps.depsdir(scs), "usr")
-srcdir = joinpath(BinDeps.depsdir(scs), "src", "scs-$version/")
-
+#srcdirOld = joinpath(BinDeps.depsdir(scs), "src", "scs-$version/")
+srcdir = joinpath(BinDeps.depsdir(scs), "../../c/scs")
 libname = "libscsdir.$(Libdl.dlext)"
 
 ldflags = ""
@@ -54,9 +54,9 @@ provides(SimpleBuild,
         GetSources(scs)
         CreateDirectory(joinpath(prefix, "lib"))
         FileRule(joinpath(prefix, "lib", libname), @build_steps begin
-            ChangeDirectory(srcdir)
-            setenv(`make out/$libname`, ENV2)
-            `mv out/$libname $prefix/lib`
+            #ChangeDirectory(srcdir)
+            setenv(`make -C $srcdir out/$libname`, ENV2)
+            `mv $srcdir/out/$libname $prefix/lib`
         end)
     end), [scs], os=:Unix)
 
