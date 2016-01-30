@@ -14,8 +14,8 @@ end
 
 function create_scs_settings(normalize=1::Int, scale=converter(Cdouble, 5.0)::Cdouble, rho_x=convert(Cdouble,1e-3)::Cdouble,
                         max_iters=2500::Int, eps=converter(Cdouble, 1e-3)::Cdouble, alpha=convert(Cdouble, 1.8)::Cdouble,
-                        cg_rate=convert(Cdouble,2)::Cdouble, verbose=1::Int, warm_start=0::Int)
-    return SCSSettings(normalize, scale, rho_x, max_iters, eps, alpha, cg_rate, verbose, warm_start)
+                        cg_rate=convert(Cdouble,2)::Cdouble, verbose=1::Int, warm_start=0::Int, line_search=0::Int)
+    return SCSSettings(normalize, scale, rho_x, max_iters, eps, alpha, cg_rate, verbose, warm_start, line_search)
 end
 
 # Create an SCSData type
@@ -32,12 +32,12 @@ function create_scs_data(;m::Int=nothing, n::Int=nothing, A::Ptr{SCSMatrix}=noth
         eps=convert(Cdouble, 1e-4)::Cdouble, alpha=convert(Cdouble, 1.8)::Cdouble,
         rho_x=convert(Cdouble, 1e-3)::Cdouble, scale=convert(Cdouble, 5.0)::Cdouble,
         cg_rate=convert(Cdouble, 2)::Cdouble, verbose=1::Int,
-        normalize=1::Int, warm_start=0::Int, options...)
+        normalize=1::Int, warm_start=0::Int, line_search=0::Int, options...)
 
     for (k, v) in options
         @eval(($k) = ($v))
     end
-    stgs = create_scs_settings(normalize, scale, rho_x, max_iters, eps, alpha, cg_rate, verbose, warm_start)
+    stgs = create_scs_settings(normalize, scale, rho_x, max_iters, eps, alpha, cg_rate, verbose, warm_start, line_search)
     return SCSData(m, n, A, b, c, pointer([stgs]))
 end
 
