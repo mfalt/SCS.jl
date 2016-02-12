@@ -15,7 +15,7 @@ scs = library_dependency("scs", aliases=aliases)
     provides(Homebrew.HB, "scs", scs, os = :Darwin)
 end
 
-version = "1.1.8"
+version = "linesearchdr"
 win_version = "1.1.5"
 
 provides(Sources, URI("https://github.com/mfalt/scs/archive/linesearchdr.tar.gz"),
