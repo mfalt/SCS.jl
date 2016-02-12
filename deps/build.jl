@@ -18,7 +18,7 @@ end
 version = "1.1.8"
 win_version = "1.1.5"
 
-provides(Sources, URI("https://github.com/cvxgrp/scs/archive/v$version.tar.gz"),
+provides(Sources, URI("https://github.com/mfalt/scs/archive/linesearchdr.tar.gz"),
     [scs], os=:Unix, unpacked_dir="scs-$version")
 
 # Windows binaries built in Cygwin as follows:
